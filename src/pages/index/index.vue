@@ -15,7 +15,7 @@ export default {
       theme: this.$theme,
       defaultFormData: {
         test3: true,
-        test1: '1',
+        test1: "1",
         test: "测试一下啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊"
       },
       formConfig: {
@@ -55,11 +55,15 @@ export default {
             type: "radioGroup",
             label: "单选框",
             key: "test8"
+          }, {
+            type: "upload",
+            label: "上传附件",
+            key: "test9"
           }
         ],
         rules: {
-          test1: {
-            type: "string",
+          test9: {
+            type: "array",
             required: true,
             message: "请填写姓名",
             trigger: ["blur", "change"]

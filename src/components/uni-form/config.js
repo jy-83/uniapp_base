@@ -45,15 +45,21 @@ const DEFAULT_CONFIG={
     checkboxGroup:{
         placement:"row",//布局方式，row-横向，column-纵向
         customStyle:{
-            marginLeft:'20rpx'
+            marginRight:'20rpx'
         }
     },
     //单选框
     radioGroup: {
         placement: "row",
         customStyle:{
-            marginLeft:'20rpx'
+            marginRight:'20rpx'
         }
+    },
+    //上传附件
+    upload:{
+        max:4,
+        btype:'',
+        disabled:false
     }
 }
 

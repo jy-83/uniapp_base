@@ -122,6 +122,15 @@
             </u-radio>
           </u-radio-group>
 
+          <uni-upload
+              v-if="item.type==='upload'"
+              v-model="formData[item.key]"
+              :max="mergeProperty(item,'max')"
+              :btype="mergeProperty(item,'btype')"
+              :disabled="mergeProperty(item,'disabled')"
+          >
+
+          </uni-upload>
           <!-- 右侧插槽-->
           <template #right>
             <slot :name="item.key"></slot>
@@ -137,6 +146,8 @@ import default_config from "./config";
 
 export default {
   name: "uni-form",
+  components: {},
+
   data() {
     return {
       formData: {},
