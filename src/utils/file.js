@@ -34,7 +34,7 @@ export function loadImage(src, height) {
  * 上传附件
  * @param {Array} imgList 已经上传的图片列表
  * @param {number} max 最大上传图片数量
- * @param {number} btype 绑定业务id需要的
+ * @param {string} btype 绑定业务id需要的
  * **/
 export function uploadImage(imgList, max = 1, btype) {
     let promise = new Promise((resolve, reject) => {
@@ -44,11 +44,11 @@ export function uploadImage(imgList, max = 1, btype) {
                 const tempFilePaths = chooseImageRes.tempFilePaths;
                 if ((imgList.length + tempFilePaths.length) <= max || max == 1) {
                     let imgList = [];
-                    console.log(`${process.env.VUE_APP_URL}`)
+                    console.log(process.env.VUE_APP_URL +
+                        `/index/attachment/upload${btype ? "?btype=" + btype : ""}`)
                     for (let i in tempFilePaths) {
                         uni.uploadFile({
-                            url: process.env.VUE_APP_URL +
-                                `/index/attachment/upload${btype ? "?btype=" + btype : ""}`,
+                            url:`${process.env.VUE_APP_URL}/index/attachment/upload${btype ? "?btype=" + btype : ""}`,
                             filePath: tempFilePaths[i],
                             name: "file",
                             success: (uploadFileRes) => {
@@ -76,18 +76,17 @@ export function uploadImage(imgList, max = 1, btype) {
 /**
  * 预览图片
  * @param {Array|String}
- * @param {nubmer} count
+ * @param {number} current
  **/
-export function previewImage(urls, count) {
+export function previewImage(urls, current) {
     if (isString(urls)) {
         urls = urls.split(",");
     }
     urls=urls.map(item=>{
         return loadImage(item)
     })
-    console.log(urls)
     uni.previewImage({
         urls,
-        count
+        current
     });
 }

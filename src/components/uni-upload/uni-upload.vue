@@ -1,9 +1,12 @@
 <template>
   <view class="upload">
     <view class="image" v-for="(item,index) in fileList" :key="index" @click="previewImage(index)">
+      <view class="close" @click.stop="deleteFile(index)" v-if="!disabled">
+        <u-icon name="close-circle-fill" size="32rpx"></u-icon>
+      </view>
       <uni-lazy-image width="160rpx" :src="item" height="160rpx"></uni-lazy-image>
     </view>
-    <view class="addFile" @click="addFile">
+    <view class="addFile" @click="addFile" v-if="fileList.length<max&&!disabled">
       <u-icon name="camera" :color="theme.text_color_inverse" size="58"></u-icon>
     </view>
   </view>
@@ -22,12 +25,23 @@ export default {
     };
   },
   props:{
+    /**初始数据回显**/
     data:{
 
     },
+    /**最大上传数**/
     max:{
       type:Number,
       default:3
+    },
+    /**业务id**/
+    btype:{
+      type:String
+    },
+    /**是否禁用**/
+    disabled:{
+      type:Boolean,
+      default: false
     }
   },
   watch: {
@@ -54,10 +68,14 @@ export default {
     previewImage(index){
       previewImage(this.fileList,index)
     },
+    /**上传**/
     addFile(){
-      uploadImage(this.fileList,this.max).then(res=>{
+      uploadImage(this.fileList,this.max,this.btype).then(res=>{
         this.fileList.push(...res)
       })
+    },
+    deleteFile(index){
+      this.fileList.splice(index,1)
     }
   }
 };
@@ -72,6 +90,13 @@ export default {
     width: 160rpx;
     height: 160rpx;
     margin:10rpx;
+    position: relative;
+    .close{
+      position: absolute;
+      right:10rpx;
+      top:10rpx;
+      z-index:10;
+    }
   }
   .addFile{
     width: 160rpx;

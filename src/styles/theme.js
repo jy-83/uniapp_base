@@ -5,7 +5,7 @@
  * **/
 module.exports = {
     /**行为相关**/
-    color_primary: "#007aff",
+    color_primary: "#dd524d",
     color_success: "#4cd964",
     color_warning: "#f0ad4e",
     color_error: "#dd524d",
