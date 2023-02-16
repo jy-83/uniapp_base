@@ -68,6 +68,9 @@ const DEFAULT_CONFIG = {
     btype: "",
     disabled: false,
   },
+  select: {
+    placeholder: "请选择",
+  },
 };
 
 export default DEFAULT_CONFIG;

@@ -153,15 +153,19 @@
           <!-- select start-->
           <template v-if="item.type === 'select'">
             <view @click="showModal(`${item.key}Modal`)">
-              {{ formData.name || item.placeholder }}
+              {{
+                formData[item.keyName] ||
+                (config.mode === "editor" ? mergeProperty(item, "placeholder") : "")
+              }}
               <uni-bottom-popup
                 :ref="`${item.key}Modal`"
                 v-model="formData[item.key]"
                 @change="changeValue($event, item)"
                 @click.native.stop
+                :initData="config.init[item.key]"
               ></uni-bottom-popup>
             </view>
-            <u-icon slot="right" name="arrow-right"></u-icon>
+            <u-icon slot="right" name="arrow-right" v-if="config.mode === 'editor'"></u-icon>
           </template>
           <!--select end-->
 

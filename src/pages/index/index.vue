@@ -17,7 +17,6 @@
           test3: true,
           test1: "测试一下啊测试一下啊测试一下啊测试一下啊测试一下啊测试一下啊测试一下啊",
           test: "11111",
-          test10: 1,
           test4: 6,
           test5: 20,
           test7: [1, 2],
@@ -25,7 +24,7 @@
           test9: ["https://cdn.uviewui.com/uview/album/1.jpg"],
         },
         formConfig: {
-          mode: "readOnly",
+          mode: "editor",
           form: [
             {
               type: "input",
@@ -80,6 +79,14 @@
               label: "测试啊",
               placeholder: "请选择",
             },
+            {
+              type: "select",
+              key: "test11",
+              keyName: "testName",
+              labelName: "name",
+              label: "测试啊",
+              placeholder: "请选择",
+            },
           ],
           rules: {
             test9: {
@@ -96,14 +103,24 @@
             },
           },
           init: {
-            test7: [
+            test10: [
               {
                 name: "测试",
-                value: 1,
+                id: 1,
               },
               {
                 name: "哈啊哈",
-                value: 2,
+                id: 2,
+              },
+            ],
+            test11: [
+              {
+                name: "测试",
+                id: 1,
+              },
+              {
+                name: "哈啊哈",
+                id: 2,
               },
             ],
             test8: [
@@ -123,7 +140,9 @@
     onLoad() {},
     methods: {
       validate() {
-        this.$refs.form.validate().then((res) => {});
+        this.$refs.form.validate().then((res) => {
+          console.log(res);
+        });
       },
       change(e) {},
     },
