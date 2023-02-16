@@ -38,9 +38,9 @@ module.exports = {
     img_size_lg: "80rpx",
 
     /* Border Radius */
-    border_radius_sm: "4rpx",
-    border_radius_base: "6rpx",
-    border_radius_lg: "12rpx",
+    border_radius_sm: "8rpx",
+    border_radius_base: "12rpx",
+    border_radius_lg: "24rpx",
     border_radius_circle: "50%",
 
     /* 水平间距 */

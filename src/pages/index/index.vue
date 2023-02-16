@@ -1,7 +1,8 @@
 <template>
-  <view class="content" :style="{color:theme.color_primary}">
+  <view>
     <uni-form ref="form" :formConfig="formConfig" :defaultFormData="defaultFormData">
     </uni-form>
+    <uni-bottom-popup v-model="value" ref="pop" @change="change"></uni-bottom-popup>
     <button @click="validate">按钮</button>
   </view>
 </template>
@@ -12,14 +13,21 @@ export default {
   components: {},
   data() {
     return {
+      value: "",
       theme: this.$theme,
       defaultFormData: {
         test3: true,
-        test1: "1",
-        test: "测试一下啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊"
+        test1: "测试一下啊测试一下啊测试一下啊测试一下啊测试一下啊测试一下啊测试一下啊",
+        test: "11111",
+        test10:1,
+        test4:6,
+        test5:20,
+        test7:[1,2],
+        test8:1,
+        test9:['https://cdn.uviewui.com/uview/album/1.jpg']
       },
       formConfig: {
-        mode: "editor",
+        mode: "readOnly",
         form: [{
           type: "input",
           key: "test",
@@ -59,13 +67,26 @@ export default {
             type: "upload",
             label: "上传附件",
             key: "test9"
+          }, {
+            type: "select",
+            key: "test10",
+            keyName:'name',
+            labelName:'name',
+            label: '测试啊',
+            placeholder:'请选择',
           }
         ],
         rules: {
           test9: {
             type: "array",
             required: true,
-            message: "请填写姓名",
+            message: "请上传附件",
+            trigger: ["blur", "change"]
+          },
+          test: {
+            type: "string",
+            required: true,
+            message: "请填写测试",
             trigger: ["blur", "change"]
           }
         },
@@ -94,8 +115,11 @@ export default {
   methods: {
     validate() {
       this.$refs.form.validate().then(res => {
-        console.log(res);
+
       });
+    },
+    change(e) {
+
     }
   }
 };

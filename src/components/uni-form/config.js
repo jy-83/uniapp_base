@@ -19,7 +19,7 @@ const DEFAULT_CONFIG={
         maxlength:-1,
         placeholder:'请输入',
         inputType:"text", //number | idcard | digit | password
-        inputAlign:'right',//left | center | right
+        inputAlign:'left',//left | center | right
     },
     // textarea默认配置
     textarea:{
@@ -35,11 +35,18 @@ const DEFAULT_CONFIG={
         touchable:true,//是否可以通过滑动手势选择评分
         minCount:0,//最少选中星星的个数
     },
+    //滑动选择器
+    slider:{
+        showValue:true,//是否显示右侧的数字
+        min:0,//最小选择的值
+        max:100,//最大选择的值
+    },
     //步进器
     numberBox:{
-        min:1,
-        max:10,
-        step:1
+        min:1,//最小值
+        max:10,//最大值
+        step:1,//步长
+        disabledInput:false,//是否禁止使用输入框
     },
     //复选框
     checkboxGroup:{
