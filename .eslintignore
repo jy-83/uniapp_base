@@ -1,0 +1,4 @@
+/dist
+/node_modules
+/postcss.config.js
+/babel.config.js

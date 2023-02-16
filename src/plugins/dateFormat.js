@@ -3,18 +3,18 @@
  * @date 2023-02-11 11:35
  * https://dayjs.fenxianglu.cn/ dayjs
  */
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-dayjs.extend(relativeTime)
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime);
 /**
  *时间格式化
  * @param {string|date|number} date 时间
  * @param {string} 格式化格式
  * */
-export function format(date, format = "YYYY.MM.DD HH:mm") {
-    if (date) {
-        return dayjs(date).format(format);
-    }
+export function format(date, format = 'YYYY.MM.DD HH:mm') {
+  if (date) {
+    return dayjs(date).format(format);
+  }
 }
 
 /**
@@ -23,9 +23,9 @@ export function format(date, format = "YYYY.MM.DD HH:mm") {
  * @param {string|date|number} currentDate 相对于的时间
  * **/
 export function dateFrom(date, currentDate = new Date()) {
-    if (date) {
-        return dayjs(date).locale('zh-cn').from(currentDate);
-    }
+  if (date) {
+    return dayjs(date).locale('zh-cn').from(currentDate);
+  }
 }
 
 /**
@@ -33,8 +33,8 @@ export function dateFrom(date, currentDate = new Date()) {
  * @param {string|date|number} date 时间
  * @param {string|date|number} currentDate 相对于的时间
  * */
-export function dateTo(date,currentDate=new Date()){
-    if(date){
-        return dayjs(currentDate).locale('zh-cn').to(date)
-    }
+export function dateTo(date, currentDate = new Date()) {
+  if (date) {
+    return dayjs(currentDate).locale('zh-cn').to(date);
+  }
 }

@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "npm run dev:h5",
     "build": "npm run build:h5",
+    "lint": "eslint --fix --ext .js,.vue src",
     "build:app-plus": "cross-env NODE_ENV=production UNI_PLATFORM=app-plus vue-cli-service uni-build",
     "build:custom": "cross-env NODE_ENV=production uniapp-cli custom",
     "build:h5": "cross-env NODE_ENV=production UNI_PLATFORM=h5 vue-cli-service uni-build",
@@ -79,6 +80,8 @@
     "vuex": "^3.2.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
     "@dcloudio/types": "^3.0.4",
     "@dcloudio/uni-automator": "^2.0.2-3061820230117002",
     "@dcloudio/uni-cli-i18n": "^2.0.2-3061820230117002",
@@ -92,13 +95,21 @@
     "@dcloudio/webpack-uni-mp-loader": "^2.0.2-3061820230117002",
     "@dcloudio/webpack-uni-pages-loader": "^2.0.2-3061820230117002",
     "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "babel-eslint": "^10.1.0",
     "babel-plugin-import": "^1.11.0",
     "cross-env": "^7.0.2",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.0.3",
     "jest": "^25.4.0",
     "mini-types": "*",
     "miniprogram-api-typings": "*",
     "postcss-comment": "^2.0.0",
+    "prettier": "^2.4.1",
     "vue-template-compiler": ">= 2.6.14 < 2.7"
   },
   "browserslist": [
