@@ -14,9 +14,9 @@
 </template>
 
 <script>
-  const { border_radius_lg } = require('@/styles/theme');
+  const { border_radius_lg } = require("@/styles/theme");
   export default {
-    name: 'uni-popup',
+    name: "uni-popup",
     data() {
       return {
         theme: this.$theme,
@@ -36,7 +36,7 @@
       //弹出方向 top / right / bottom / center
       mode: {
         type: String,
-        default: 'bottom',
+        default: "bottom",
       },
       //	是否显示关闭图标
       closeable: {
@@ -55,10 +55,10 @@
     },
     methods: {
       close() {
-        this.$emit('input', false);
+        this.$emit("input", false);
       },
       open() {
-        this.$emit('input', true);
+        this.$emit("input", true);
       },
     },
   };

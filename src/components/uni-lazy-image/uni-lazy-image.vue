@@ -19,10 +19,10 @@
 </template>
 
 <script>
-  import { loadImage } from '@/utils/file';
+  import { loadImage } from "@/utils/file";
 
   export default {
-    name: 'uni-lazyImage',
+    name: "uni-lazyImage",
     data() {
       return {
         theme: this.$theme,
@@ -31,7 +31,7 @@
     props: {
       src: {
         type: String,
-        default: 'https://cdn.uviewui.com/uview/album/1.jpg',
+        default: "https://cdn.uviewui.com/uview/album/1.jpg",
       },
       width: {
         type: String,
@@ -43,11 +43,11 @@
       },
       mode: {
         type: String,
-        default: 'aspectFill',
+        default: "aspectFill",
       },
       radius: {
         type: String,
-        default: '0rpx',
+        default: "0rpx",
       },
     },
     methods: {

@@ -5,17 +5,17 @@
  * @date 2023-02-10 14:28
 
  */
-const { color_primary, text_color_grey } = require('@/styles/theme');
+const { color_primary, text_color_grey } = require("@/styles/theme");
 
 const DEFAULT_OPTION = {
-  title: '温馨提示',
+  title: "温馨提示",
   showCancel: true,
-  cancelText: '取消',
+  cancelText: "取消",
   cancelColor: text_color_grey,
-  confirmText: '确定',
+  confirmText: "确定",
   confirmColor: color_primary,
   editable: false,
-  placeholderText: '请输入',
+  placeholderText: "请输入",
 };
 /**
  * @class

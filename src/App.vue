@@ -1,13 +1,9 @@
 <script>
-export default {
-  onLaunch: function () {},
-  onShow: function () {},
-  onHide: function () {},
-};
+  export default {};
 </script>
 
 <style lang="scss">
-/*每个页面公共css */
-@import "uview-ui/index.scss";
-@import "@/styles/index.scss";
+  /*每个页面公共css */
+  @import "uview-ui/index.scss";
+  @import "@/styles/index.scss";
 </style>

@@ -1,12 +1,12 @@
-import cache from '@/plugins/cache.js';
-import toast from '@/plugins/toast';
+import cache from "@/plugins/cache.js";
+import toast from "@/plugins/toast";
 
 const HttpService = function () {};
 
 // 获取最终URL
-const BaseURL = process.env.VUE_APP_URL.endsWith('/')
+const BaseURL = process.env.VUE_APP_URL.endsWith("/")
   ? process.env.VUE_APP_URL
-  : process.env.VUE_APP_URL + '/';
+  : process.env.VUE_APP_URL + "/";
 
 /**
  * 拼接URL
@@ -15,12 +15,12 @@ const BaseURL = process.env.VUE_APP_URL.endsWith('/')
  * @param {Object}query 请求参数
  * @returns {string}
  */
-const concatURL = function (baseURL = '', url = '', query = {}) {
+const concatURL = function (baseURL = "", url = "", query = {}) {
   // 如果url本身满足协议头，则不进行任何处理
   let isProtocolURL = url.match(/^[a-z]+:\/\//);
   let finalURL = baseURL;
   if (!isProtocolURL) {
-    if (url.startsWith('/')) {
+    if (url.startsWith("/")) {
       finalURL = finalURL + url.substring(1);
     } else {
       finalURL = finalURL + url;
@@ -39,7 +39,7 @@ const concatURL = function (baseURL = '', url = '', query = {}) {
 const setParams = function (url, queryString = {}) {
   if (queryString && Object.keys(queryString).length > 0) {
     Object.keys(queryString).forEach((key, index) => {
-      if (url.includes('?')) {
+      if (url.includes("?")) {
         url = `${url}&${key}=${queryString[key]}`;
       } else {
         url = `${url}?${key}=${queryString[key]}`;
@@ -56,7 +56,7 @@ HttpService.prototype = {
   _requestInterceptor(config) {
     const options = Object.assign(
       {
-        method: 'GET',
+        method: "GET",
         header: {},
       },
       config,
@@ -65,11 +65,11 @@ HttpService.prototype = {
     // 如果没有url，则直接失败
     let url = options.url;
     if (!url) {
-      throw '发起请求失败：缺少请求地址url!';
+      throw "发起请求失败：缺少请求地址url!";
     }
 
     // 组装最终地址
-    if (url.indexOf('http') !== 0) {
+    if (url.indexOf("http") !== 0) {
       options.url = concatURL(options.baseURL || BaseURL, url);
     }
 
@@ -79,8 +79,8 @@ HttpService.prototype = {
     // 对于请求的是本站的地址，需要添加Token
     if (options.url.startsWith(BaseURL)) {
       // 设置Token请求头
-      let user = cache.getCache('user');
-      options.header['login-platform'] = 'AED';
+      let user = cache.getCache("user");
+      options.header["login-platform"] = "AED";
       if (user) {
         options.header.Authorization = `Bearer ${user.authToken}`;
       }
@@ -129,32 +129,32 @@ HttpService.prototype = {
 function printError(status) {
   switch (status) {
     case 400:
-      toast.error('请求参数错误！');
+      toast.error("请求参数错误！");
       break;
     case 404:
-      toast.error('接口不存在！');
+      toast.error("接口不存在！");
       break;
     case 500:
-      toast.error('服务器错误！');
+      toast.error("服务器错误！");
       break;
     default:
-      toast.error('请求出现了一点小问题！');
+      toast.error("请求出现了一点小问题！");
       break;
   }
-  throw '请求错误：' + status;
+  throw "请求错误：" + status;
 }
 
 const request = {
   async get(config) {
     return await new HttpService({}).request({
       ...config,
-      method: 'get',
+      method: "get",
     });
   },
   async post(config) {
     return await new HttpService({}).request({
       ...config,
-      method: 'post',
+      method: "post",
     });
   },
 };

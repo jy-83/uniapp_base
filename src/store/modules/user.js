@@ -1,7 +1,7 @@
 const user = {
   namespaced: true,
   state: {
-    name: '测试',
+    name: "测试",
   },
   mutations: {},
   getters: {},

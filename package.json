@@ -46,7 +46,8 @@
     "test:h5": "cross-env UNI_PLATFORM=h5 jest -i",
     "test:ios": "cross-env UNI_PLATFORM=app-plus UNI_OS_NAME=ios jest -i",
     "test:mp-baidu": "cross-env UNI_PLATFORM=mp-baidu jest -i",
-    "test:mp-weixin": "cross-env UNI_PLATFORM=mp-weixin jest -i"
+    "test:mp-weixin": "cross-env UNI_PLATFORM=mp-weixin jest -i",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@dcloudio/uni-app": "^2.0.2-3061820230117002",
@@ -110,7 +111,8 @@
     "miniprogram-api-typings": "*",
     "postcss-comment": "^2.0.0",
     "prettier": "^2.4.1",
-    "vue-template-compiler": ">= 2.6.14 < 2.7"
+    "vue-template-compiler": ">= 2.6.14 < 2.7",
+    "husky": "^7.0.0"
   },
   "browserslist": [
     "Android >= 4.4",

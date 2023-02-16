@@ -36,7 +36,7 @@ export function validMobile(mobile) {
  * @returns {Boolean}
  */
 export function isEmpty(value) {
-  return value === null || value === undefined || value === '' || value.length === 0;
+  return value === null || value === undefined || value === "" || value.length === 0;
 }
 
 /**
@@ -45,7 +45,7 @@ export function isEmpty(value) {
  * @returns {Boolean}
  */
 export function isString(str) {
-  if (typeof str === 'string' || str instanceof String) {
+  if (typeof str === "string" || str instanceof String) {
     return true;
   }
   return false;
@@ -56,8 +56,8 @@ export function isString(str) {
  * @returns {Boolean}
  */
 export function isArray(arg) {
-  if (typeof Array.isArray === 'undefined') {
-    return Object.prototype.toString.call(arg) === '[object Array]';
+  if (typeof Array.isArray === "undefined") {
+    return Object.prototype.toString.call(arg) === "[object Array]";
   }
   return Array.isArray(arg);
 }
@@ -67,5 +67,5 @@ export function isArray(arg) {
  * @returns {Boolean}
  * **/
 export function isNumber(num) {
-  return typeof num === 'number';
+  return typeof num === "number";
 }

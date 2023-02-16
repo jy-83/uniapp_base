@@ -13,10 +13,10 @@
 export default {
   data() {
     return {
-      title: '',
-      path: '', //发送到朋友的参数
-      imageUrl: '',
-      query: '', //发送到朋友圈的参数
+      title: "",
+      path: "", //发送到朋友的参数
+      imageUrl: "",
+      query: "", //发送到朋友圈的参数
     };
   },
   /**发送给朋友**/

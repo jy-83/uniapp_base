@@ -17,7 +17,7 @@ export function getCurrentPage(num = 2) {
     if (currentPage) {
       resolve(currentPage);
     } else {
-      reject('页面不存在');
+      reject("页面不存在");
     }
   });
 }
@@ -29,7 +29,7 @@ export function getCurrentPage(num = 2) {
 export function requestPayment(obj) {
   return new Promise((resolve, reject) => {
     uni.requestPayment({
-      provider: 'wxpay',
+      provider: "wxpay",
       ...obj,
       success: function (res) {
         resolve(res);

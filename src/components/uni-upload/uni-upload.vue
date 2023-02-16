@@ -13,11 +13,11 @@
 </template>
 
 <script>
-  import { isString, isEmpty, isArray } from '@/utils/validate';
-  import { previewImage, uploadImage } from '@/utils/file';
+  import { isString, isEmpty, isArray } from "@/utils/validate";
+  import { previewImage, uploadImage } from "@/utils/file";
 
   export default {
-    name: 'uni-upload',
+    name: "uni-upload",
     data() {
       return {
         theme: this.$theme,
@@ -52,13 +52,13 @@
       /**上传**/
       addFile() {
         uploadImage(this.value, this.max, this.btype).then((res) => {
-          this.$emit('input', [...this.value, ...res]);
+          this.$emit("input", [...this.value, ...res]);
         });
       },
       deleteFile(index) {
         let res = [...this.value];
         res.splice(index, 1);
-        this.$emit('input', res);
+        this.$emit("input", res);
       },
     },
   };

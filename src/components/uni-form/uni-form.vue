@@ -176,10 +176,10 @@
 </template>
 
 <script>
-  import default_config from './config';
+  import default_config from "./config";
 
   export default {
-    name: 'uni-form',
+    name: "uni-form",
     components: {},
 
     data() {
@@ -199,15 +199,15 @@
           let formData = {};
           for (let i = 0; i < form.length; i++) {
             /**判断是switch默认设置为false**/
-            if (form[i].type === 'switch') {
+            if (form[i].type === "switch") {
               formData[form[i].key] = false;
               continue;
             }
             /**判断选择的是否有回显值**/
             if (form[i].keyName) {
-              formData[form[i].keyName] = '';
+              formData[form[i].keyName] = "";
             }
-            formData[form[i].key] = '';
+            formData[form[i].key] = "";
           }
           this.formData = Object.assign(formData, this.defaultFormData);
           this.config = Object.assign(default_config, newVal);
@@ -254,7 +254,7 @@
        * 底部弹出层显示
        * **/
       showModal(type) {
-        if (this.config.mode === 'readOnly') return;
+        if (this.config.mode === "readOnly") return;
         this.$refs[type][0].open();
       },
       /**
@@ -262,7 +262,7 @@
        * 配置中需要传入keyName
        * **/
       changeValue(e, item) {
-        this.formData[item.keyName] = e[item.labelName ?? 'name'];
+        this.formData[item.keyName] = e[item.labelName ?? "name"];
       },
     },
   };

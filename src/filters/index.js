@@ -5,8 +5,8 @@
  * @date 2023-02-11 12:03
 
  */
-import { isString, isNumber } from '@/utils/validate';
-export { format, dateFrom, dateTo } from '@/plugins/dateFormat';
+import { isString, isNumber } from "@/utils/validate";
+export { format, dateFrom, dateTo } from "@/plugins/dateFormat";
 
 /**
  * 数字格式化

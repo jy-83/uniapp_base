@@ -6,9 +6,9 @@
 
  */
 const DEFAULT_OPTION = {
-  title: '',
-  icon: 'none',
-  image: '',
+  title: "",
+  icon: "none",
+  image: "",
   mask: true,
   duration: 1500,
 };
@@ -30,7 +30,7 @@ class Toast {
     uni.showToast({
       ...this.option,
       title,
-      icon: 'error',
+      icon: "error",
       ...option,
     });
   }
@@ -39,7 +39,7 @@ class Toast {
     uni.showToast({
       ...this.option,
       title,
-      icon: 'success',
+      icon: "success",
       option,
     });
   }

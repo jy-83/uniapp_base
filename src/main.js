@@ -1,10 +1,10 @@
-import Vue from 'vue';
-import App from './App';
-import uView from 'uview-ui';
-import store, { setupStore } from '@/store/index.js';
-import plugins from '@/plugins';
-const themeStyle = require('./styles/theme');
-import * as filters from '@/filters';
+import Vue from "vue";
+import App from "./App";
+import uView from "uview-ui";
+import store, { setupStore } from "@/store/index.js";
+import plugins from "@/plugins";
+const themeStyle = require("./styles/theme");
+import * as filters from "@/filters";
 
 // uview
 Vue.use(uView);
@@ -19,7 +19,7 @@ Object.keys(filters).forEach((key) => {
 
 Vue.config.productionTip = false;
 
-App.mpType = 'app';
+App.mpType = "app";
 
 const app = new Vue({
   ...App,

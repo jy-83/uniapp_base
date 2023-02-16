@@ -5,11 +5,11 @@
  * @date 2023-02-11 14:43
 
  */
-import _ from 'lodash';
-import cache from './cache';
-import modal from './modal';
-import toast from './toast';
-import { format as dateFormat } from './dateFormat';
+import _ from "lodash";
+import cache from "./cache";
+import modal from "./modal";
+import toast from "./toast";
+import { format as dateFormat } from "./dateFormat";
 
 export default {
   install(Vue) {

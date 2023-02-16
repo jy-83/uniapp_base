@@ -26,27 +26,27 @@
 </template>
 
 <script>
-  import request from '@/utils/request';
-  import { isEmpty } from '@/utils/validate';
+  import request from "@/utils/request";
+  import { isEmpty } from "@/utils/validate";
 
   export default {
-    name: 'uni-bottom-popup',
+    name: "uni-bottom-popup",
     data() {
       return {
         show: false,
         data: [],
         theme: this.$theme,
-        copyValue: '',
+        copyValue: "",
       };
     },
     props: {
       title: {
         type: String,
-        default: '请选择',
+        default: "请选择",
       },
       type: {
         type: String,
-        default: 'radio',
+        default: "radio",
       },
       //传递的初始值
       value: {
@@ -57,11 +57,11 @@
         type: Array,
         default: () => [
           {
-            name: '测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试',
+            name: "测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试",
             id: 1,
           },
           {
-            name: '测试2',
+            name: "测试2",
             id: 2,
           },
         ],
@@ -73,11 +73,11 @@
       //显示的名称
       labelName: {
         type: String,
-        default: 'name',
+        default: "name",
       },
       valueName: {
         type: String,
-        default: 'id',
+        default: "id",
       },
     },
     created() {
@@ -111,14 +111,14 @@
       },
       confirm() {
         if (isEmpty(this.copyValue)) {
-          this.$toast.info('请选择');
+          this.$toast.info("请选择");
           return;
         }
         let current = this.initData.filter((item) => {
           return item[this.valueName] === this.copyValue;
         });
-        this.$emit('input', this.copyValue);
-        this.$emit('change', ...current);
+        this.$emit("input", this.copyValue);
+        this.$emit("change", ...current);
         this.close();
       },
     },

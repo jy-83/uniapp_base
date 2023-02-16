@@ -5,8 +5,8 @@
  * @date 2023-02-07 16:31
 
  */
-import { validURL, isString } from '@/utils/validate';
-import modal from '@/plugins/modal';
+import { validURL, isString } from "@/utils/validate";
+import modal from "@/plugins/modal";
 
 /**
  * 加载图片
@@ -14,7 +14,7 @@ import modal from '@/plugins/modal';
  * @param {string|number} height
  * **/
 export function loadImage(src, height) {
-  if (!src) return '';
+  if (!src) return "";
   src = src.toString();
   if (!validURL(src)) {
     src = `${process.env.VUE_APP_URL}${process.env.VUE_APP_IMG_BASE}${src}`;
@@ -24,7 +24,7 @@ export function loadImage(src, height) {
    * 在.env文件配置**/
   if (process.env.VUE_APP_OSS_URL && height) {
     height = height.toString();
-    height = height.replace('rpx', '');
+    height = height.replace("rpx", "");
     src += `?x-oss-process=image/resize,h_${height},m_lfit`;
   }
   return src;
@@ -45,15 +45,15 @@ export function uploadImage(imgList, max = 1, btype) {
         if (imgList.length + tempFilePaths.length <= max || max == 1) {
           let imgList = [];
           console.log(
-            process.env.VUE_APP_URL + `/index/attachment/upload${btype ? '?btype=' + btype : ''}`,
+            process.env.VUE_APP_URL + `/index/attachment/upload${btype ? "?btype=" + btype : ""}`,
           );
           for (let i in tempFilePaths) {
             uni.uploadFile({
               url: `${process.env.VUE_APP_URL}/index/attachment/upload${
-                btype ? '?btype=' + btype : ''
+                btype ? "?btype=" + btype : ""
               }`,
               filePath: tempFilePaths[i],
-              name: 'file',
+              name: "file",
               success: (uploadFileRes) => {
                 let res = JSON.parse(uploadFileRes.data);
                 if (res.error) {
@@ -83,7 +83,7 @@ export function uploadImage(imgList, max = 1, btype) {
  **/
 export function previewImage(urls, current) {
   if (isString(urls)) {
-    urls = urls.split(',');
+    urls = urls.split(",");
   }
   urls = urls.map((item) => {
     return loadImage(item);
