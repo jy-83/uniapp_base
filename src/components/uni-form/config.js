@@ -71,8 +71,15 @@ const DEFAULT_CONFIG = {
     btype: "",
     disabled: false,
   },
+  //弹出层选择
   select: {
     placeholder: "请选择",
+  },
+  // 时间选择器
+  datetime: {
+    mode: "datetime", //date为日期选择，time为时间选择，year-month为年月选择
+    placeholder: "请选择",
+    minDate: Date.now(), //最小选择的时间
   },
 };
 

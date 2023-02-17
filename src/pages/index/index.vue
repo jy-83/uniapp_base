@@ -16,12 +16,13 @@
         defaultFormData: {
           test3: true,
           test1: "测试一下啊测试一下啊测试一下啊测试一下啊测试一下啊测试一下啊测试一下啊",
-          test: "11111",
+          test: "",
           test4: 6,
           test5: 20,
           test7: [1, 2],
           test8: 1,
           test9: ["https://cdn.uviewui.com/uview/album/1.jpg"],
+          test12: "2023-04-04",
         },
         formConfig: {
           mode: "editor",
@@ -89,6 +90,11 @@
               placeholder: "请选择",
               event: "test",
             },
+            {
+              type: "datetime",
+              key: "test12",
+              label: "时间选择器",
+            },
           ],
           rules: {
             test9: {
@@ -142,9 +148,7 @@
     onLoad() {},
     methods: {
       validate() {
-        this.$refs.form.validate().then((res) => {
-          console.log(res);
-        });
+        this.$refs.form.resetFields();
       },
       change(e) {},
     },

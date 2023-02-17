@@ -170,6 +170,30 @@
           </template>
           <!--select end-->
 
+          <!--datetime start-->
+          <template v-if="item.type === 'datetime'">
+            <view @click="showDatetime(item.key)">
+              {{
+                formData[item.key] ||
+                (config.mode === "editor" ? mergeProperty(item, "placeholder") : "")
+              }}
+              <u-datetime-picker
+                @click.native.stop
+                :show="showConfig[item.key]"
+                :mode="mergeProperty(item, 'mode')"
+                @confirm="confirmDatetime($event, item)"
+                @cancel="closeDatetime(item.key)"
+                @close="closeDatetime(item.key)"
+                :minDate="mergeProperty(item, 'minDate')"
+                :loading="true"
+                :confirmColor="theme.color_primary"
+                :closeOnClickOverlay="true"
+              ></u-datetime-picker>
+            </view>
+            <u-icon slot="right" name="arrow-right" v-if="config.mode === 'editor'"></u-icon>
+          </template>
+          <!--datetime end-->
+
           <!-- 右侧插槽-->
           <template #right>
             <slot :name="item.key"></slot>
@@ -182,16 +206,20 @@
 
 <script>
   import default_config from "./config";
-  import { isFunction } from "@/utils/validate";
 
   export default {
     name: "uni-form",
     components: {},
     data() {
       return {
+        /**最后需要的数据**/
         formData: {},
+        /**合并一些配置**/
         config: {},
+        /**主题引入**/
         theme: this.$theme,
+        /**维护一些需要弹出层的变量**/
+        showConfig: {},
       };
     },
     onReady() {
@@ -202,7 +230,12 @@
         handler(newVal) {
           let { form } = newVal;
           let formData = {};
+          let showConfig = {};
           for (let i = 0; i < form.length; i++) {
+            /**判断是否为datetime需要维护一个控制显隐的变量**/
+            if (form[i].type === "datetime") {
+              showConfig[form[i].key] = false;
+            }
             /**判断是switch默认设置为false**/
             if (form[i].type === "switch") {
               formData[form[i].key] = false;
@@ -214,9 +247,9 @@
             }
             formData[form[i].key] = "";
           }
-          console.log(newVal);
           this.formData = Object.assign(formData, this.defaultFormData);
           this.config = Object.assign(default_config, newVal);
+          this.showConfig = showConfig;
         },
         immediate: true,
         deep: true,
@@ -235,6 +268,11 @@
       },
     },
     methods: {
+      /**重置表单**/
+      resetFields() {
+        console.log("进入了");
+        this.$refs.form.resetFields();
+      },
       /**触发校验**/
       validate() {
         return new Promise((resolve, reject) => {
@@ -273,6 +311,35 @@
         if (item.event) {
           this.$emit(item.event, item);
         }
+      },
+      /**
+       * 时间选择器点击确定**/
+      confirmDatetime({ value }, item) {
+        let time;
+        switch (item.mode) {
+          case "date":
+            time = this.$dateFormat(value, "YYYY-MM-DD");
+            break;
+          case "time":
+            time = value;
+            break;
+          case "year-month":
+            time = this.$dateFormat(value, "YYYY-MM");
+            break;
+          default:
+            time = this.$dateFormat(value, "YYYY-MM-DD HH:mm");
+        }
+        this.formData[item.key] = time;
+        this.showConfig[item.key] = false;
+      },
+      /**时间选择器显示**/
+      showDatetime(key) {
+        if (this.config.mode === "readOnly") return;
+        this.showConfig[key] = true;
+      },
+      /**时间选择器关闭**/
+      closeDatetime(key) {
+        this.showConfig[key] = false;
       },
     },
   };
