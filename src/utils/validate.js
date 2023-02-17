@@ -69,3 +69,12 @@ export function isArray(arg) {
 export function isNumber(num) {
   return typeof num === "number";
 }
+
+/**
+ * 函数
+ * @param {Function} fn
+ * @returns {Boolean}
+ * **/
+export function isFunction(fn) {
+  return Object.prototype.toString.call(fn) === "[object Function]";
+}

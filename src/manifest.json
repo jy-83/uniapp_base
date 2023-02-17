@@ -61,7 +61,8 @@
         /* 微信小程序特有相关 */
         "appid" : "wx4cddf61e121f4564",
         "setting" : {
-            "urlCheck" : false
+            "urlCheck" : false,
+            "checkSiteMap": false
         },
         "usingComponents" : true
     },

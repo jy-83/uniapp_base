@@ -12,7 +12,7 @@
           :activeColor="theme.color_primary"
         >
           <u-radio
-            :customStyle="{ marginBottom: '8px' }"
+            :customStyle="{ paddingBottom: '24rpx' }"
             v-for="(item, index) in data"
             :key="index"
             :label="item[labelName]"

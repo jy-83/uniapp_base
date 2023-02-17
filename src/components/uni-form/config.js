@@ -10,9 +10,12 @@ const DEFAULT_CONFIG = {
   errorType: "message", //校验提示方式 none|toast|border-bottom|message
   borderBottom: true, //是否显示底部的border
   labelPosition: "left", //表单域提示文字的位置，left-左侧，top-上方
-  labelWidth: "200rpx", //提示文字的宽度，单位px 数值 / auto
+  labelWidth: "auto", //提示文字的宽度，单位px 数值 / auto
   labelAlign: "left", //label字体的对齐方式center / right /left
-  labelStyle: {}, //label的样式，对象形式
+  labelStyle: {
+    width: "200rpx",
+    marginLeft: "30rpx",
+  }, //label的样式，对象形式
   // input默认配置
   input: {
     clearable: true, //是否显示清空按钮

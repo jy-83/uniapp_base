@@ -20,6 +20,7 @@
           v-for="(item, index) in config.form"
           :key="index"
           :labelPosition="item.labelPosition"
+          :required="item.required"
         >
           <!--input start-->
           <u-input
@@ -181,11 +182,11 @@
 
 <script>
   import default_config from "./config";
+  import { isFunction } from "@/utils/validate";
 
   export default {
     name: "uni-form",
     components: {},
-
     data() {
       return {
         formData: {},
@@ -213,6 +214,7 @@
             }
             formData[form[i].key] = "";
           }
+          console.log(newVal);
           this.formData = Object.assign(formData, this.defaultFormData);
           this.config = Object.assign(default_config, newVal);
         },
@@ -267,6 +269,10 @@
        * **/
       changeValue(e, item) {
         this.formData[item.keyName] = e[item.labelName ?? "name"];
+        /**是否需要特殊处理传递事件出去**/
+        if (item.event) {
+          this.$emit(item.event, item);
+        }
       },
     },
   };
