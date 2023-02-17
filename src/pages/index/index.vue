@@ -1,6 +1,10 @@
 <template>
   <view>
-    <uni-form ref="form" :formConfig="formConfig" :defaultFormData="defaultFormData"></uni-form>
+    <uni-form ref="form" :formConfig="formConfig" :defaultFormData="defaultFormData">
+      <template #test100>
+        <view>测试一下</view>
+      </template>
+    </uni-form>
     <uni-bottom-popup v-model="value" ref="pop" @change="change"></uni-bottom-popup>
     <button @click="validate">按钮</button>
   </view>
@@ -27,6 +31,11 @@
         formConfig: {
           mode: "editor",
           form: [
+            {
+              type: "slot",
+              label: "测试",
+              slotName: "test100",
+            },
             {
               type: "input",
               key: "test",

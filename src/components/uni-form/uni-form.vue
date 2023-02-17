@@ -194,6 +194,13 @@
           </template>
           <!--datetime end-->
 
+          <!-- 插槽 start-->
+          <template v-if="item.type === 'slot'">
+            <slot :name="item.slotName"></slot>
+            <u-icon slot="right" name="arrow-right" v-if="config.mode === 'editor'"></u-icon>
+          </template>
+          <!--插槽 end-->
+
           <!-- 右侧插槽-->
           <template #right>
             <slot :name="item.key"></slot>
