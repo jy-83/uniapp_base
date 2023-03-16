@@ -12,200 +12,244 @@
         :rules="config.rules"
         ref="form"
       >
-        <u-form-item
-          :label="item.label"
-          :prop="item.key"
-          borderBottom
-          ref="item1"
-          v-for="(item, index) in config.form"
-          :key="index"
-          :labelPosition="item.labelPosition"
-          :required="item.required"
-        >
-          <!--input start-->
-          <u-input
-            v-if="item.type === 'input' && config.mode === 'editor'"
-            v-model="formData[item.key]"
-            border="none"
-            :type="mergeProperty(item, 'inputType')"
-            :clearable="mergeProperty(item, 'clearable')"
-            :maxlength="mergeProperty(item, 'maxlength')"
-            :placeholder="mergeProperty(item, 'placeholder')"
-            :inputAlign="mergeProperty(item, 'inputAlign')"
+        <view v-for="(item, index) in config.form" :key="index">
+          <!--border start-->
+          <slot v-if="item.type === 'border'" :name="item.slotName">
+            <view class="border"></view>
+          </slot>
+          <!--border end-->
+          <u-form-item
+            :label="item.label"
+            :prop="item.key"
+            :borderBottom="mergeProperty(item, 'borderBottom')"
+            ref="item1"
+            :labelPosition="item.labelPosition"
+            :required="item.required"
+            v-else
           >
-            <template #prefix>
+            <!--input start-->
+            <u-input
+              v-if="
+                item.type === 'input' &&
+                config.mode === 'editor' &&
+                !mergeProperty(item, 'disabled')
+              "
+              v-model="formData[item.key]"
+              border="none"
+              :type="mergeProperty(item, 'inputType')"
+              :clearable="mergeProperty(item, 'clearable')"
+              :maxlength="mergeProperty(item, 'maxlength')"
+              :placeholder="mergeProperty(item, 'placeholder')"
+              :inputAlign="mergeProperty(item, 'inputAlign')"
+            >
+              <template #prefix>
+                <slot :name="`prefix_${item.key}`"></slot>
+              </template>
+              <template #suffix>
+                <slot :name="`suffix_${item.key}`"></slot>
+              </template>
+            </u-input>
+            <view
+              v-if="
+                item.type === 'input' &&
+                (config.mode === 'readOnly' || mergeProperty(item, 'disabled'))
+              "
+            >
               <slot :name="`prefix_${item.key}`"></slot>
-            </template>
-            <template #suffix>
+              <view class="input" :style="{ textAlign: mergeProperty(item, 'inputAlign') }">
+                {{ formData[item.key] }}
+              </view>
               <slot :name="`suffix_${item.key}`"></slot>
+            </view>
+            <!-- input end-->
+
+            <!--textarea start-->
+            <u-textarea
+              v-if="item.type === 'textarea'"
+              v-model="formData[item.key]"
+              :disabled="config.mode === 'readOnly'"
+              :placeholder="mergeProperty(item, 'placeholder')"
+              :height="mergeProperty(item, 'height')"
+              :count="mergeProperty(item, 'count')"
+              :border="mergeProperty(item, 'border')"
+              :style="{ background: 'red' }"
+            ></u-textarea>
+            <!--textarea end -->
+
+            <!--开关选择器 start-->
+            <u-switch
+              :disabled="config.mode === 'readOnly'"
+              v-if="item.type === 'switch'"
+              v-model="formData[item.key]"
+              :activeColor="theme.color_primary"
+            ></u-switch>
+            <!--开关选择器 end-->
+
+            <!--评分 start-->
+            <u-rate
+              v-if="item.type === 'rate'"
+              v-model="formData[item.key]"
+              :readonly="config.mode === 'readOnly'"
+              :activeColor="theme.color_primary"
+              :count="mergeProperty(item, 'count')"
+              :size="mergeProperty(item, 'size')"
+              :allowHalf="mergeProperty(item, 'allowHalf')"
+              :touchable="mergeProperty(item, 'touchable')"
+              :minCount="mergeProperty(item, 'minCount')"
+            ></u-rate>
+            <!--评分 end-->
+
+            <!-- slider start-->
+            <u-slider
+              v-if="item.type === 'slider'"
+              v-model="formData[item.key]"
+              :activeColor="theme.color_primary"
+              :showValue="mergeProperty(item, 'showValue')"
+              :disabled="config.mode === 'readOnly'"
+              :min="mergeProperty(item, 'min')"
+              :max="mergeProperty(item, 'max')"
+            ></u-slider>
+            <!--  slider end-->
+
+            <!-- number-box start-->
+            <u-number-box
+              v-if="item.type === 'numberBox'"
+              v-model="formData[item.key]"
+              :disabled="config.mode === 'readOnly'"
+              :min="mergeProperty(item, 'min')"
+              :max="mergeProperty(item, 'max')"
+              :step="mergeProperty(item, 'step')"
+              :disabledInput="mergeProperty(item, 'disabledInput')"
+            ></u-number-box>
+            <!-- number-box end-->
+
+            <!--checkboxGroup start-->
+            <u-checkbox-group
+              v-if="item.type === 'checkboxGroup'"
+              v-model="formData[item.key]"
+              :activeColor="theme.color_primary"
+              :placement="mergeProperty(item, 'placement')"
+              :disabled="config.mode === 'readOnly'"
+            >
+              <u-checkbox
+                v-for="(childItem, childIndex) in config.init[item.key]"
+                :key="childIndex"
+                :label="childItem.name"
+                :name="childItem.value"
+                :customStyle="mergeProperty(item, 'customStyle')"
+              ></u-checkbox>
+            </u-checkbox-group>
+            <!--checkboxGroup end-->
+
+            <!--u-radio-group start-->
+            <u-radio-group
+              v-if="item.type === 'radioGroup'"
+              v-model="formData[item.key]"
+              :placement="mergeProperty(item, 'placement')"
+              :activeColor="theme.color_primary"
+              :disabled="config.mode === 'readOnly' || item.disable"
+              style="justify-content: flex-end"
+            >
+              <u-radio
+                v-for="(childItem, childIndex) in config.init[item.key]"
+                :key="childIndex"
+                :label="childItem.name"
+                :name="childItem.value"
+                :customStyle="mergeProperty(item, 'customStyle')"
+              ></u-radio>
+            </u-radio-group>
+            <!-- u-radio-group end-->
+
+            <!-- 附件上传 start-->
+            <uni-upload
+              v-if="item.type === 'upload'"
+              v-model="formData[item.key]"
+              :max="mergeProperty(item, 'max')"
+              :btype="mergeProperty(item, 'btype')"
+              :disabled="config.mode === 'readOnly'"
+              :style="{
+                marginTop:
+                  item.labelPosition === 'top' && !formConfig.labelStyle.marginBottom
+                    ? '20rpx'
+                    : '',
+              }"
+            ></uni-upload>
+            <!--附件上传 end-->
+
+            <!-- select start-->
+            <template v-if="item.type === 'select'">
+              <view
+                @click="showModal(`${item.key}Modal`)"
+                class="input"
+                :style="{
+                  textAlign: mergeProperty(item, 'inputAlign'),
+                  color: formData[item.keyName] ? theme.text_color : theme.text_color_placeholder,
+                }"
+              >
+                {{
+                  formData[item.keyName] ||
+                  (config.mode === "editor" ? mergeProperty(item, "placeholder") : "")
+                }}
+                <uni-bottom-popup
+                  :ref="`${item.key}Modal`"
+                  v-model="formData[item.key]"
+                  @change="changeValue($event, item)"
+                  @click.native.stop
+                  :initData="config.init[item.key]"
+                  :queryUrl="item.queryUrl"
+                  :postUrl="item.postUrl"
+                  :type="mergeProperty(item, 'selectType')"
+                ></uni-bottom-popup>
+              </view>
+              <u-icon slot="right" name="arrow-right" v-if="config.mode === 'editor'"></u-icon>
             </template>
-          </u-input>
-          <view v-if="item.type === 'input' && config.mode === 'readOnly'">
-            <slot :name="`prefix_${item.key}`"></slot>
-            <view>{{ formData[item.key] }}</view>
-            <slot :name="`suffix_${item.key}`"></slot>
-          </view>
-          <!-- input end-->
+            <!--select end-->
 
-          <!--textarea start-->
-          <u-textarea
-            v-if="item.type === 'textarea'"
-            v-model="formData[item.key]"
-            :disabled="config.mode === 'readOnly'"
-            :placeholder="mergeProperty(item, 'placeholder')"
-            :height="mergeProperty(item, 'height')"
-            :count="mergeProperty(item, 'count')"
-          ></u-textarea>
-          <!--textarea end -->
+            <!--datetime start-->
+            <template v-if="item.type === 'datetime'">
+              <view
+                @click="showDatetime(item.key)"
+                :style="{
+                  textAlign: mergeProperty(item, 'inputAlign'),
+                  color: formData[item.key] ? theme.text_color : theme.text_color_placeholder,
+                }"
+              >
+                {{
+                  formData[item.key] ||
+                  (config.mode === "editor" ? mergeProperty(item, "placeholder") : "")
+                }}
+                <u-datetime-picker
+                  @click.native.stop
+                  :show="showConfig[item.key]"
+                  :mode="mergeProperty(item, 'mode')"
+                  @confirm="confirmDatetime($event, item)"
+                  @cancel="closeDatetime(item.key)"
+                  @close="closeDatetime(item.key)"
+                  :minDate="mergeProperty(item, 'minDate')"
+                  :loading="true"
+                  :confirmColor="theme.color_primary"
+                  :closeOnClickOverlay="true"
+                ></u-datetime-picker>
+              </view>
+              <u-icon slot="right" name="arrow-right" v-if="config.mode === 'editor'"></u-icon>
+            </template>
+            <!--datetime end-->
 
-          <!--开关选择器 start-->
-          <u-switch
-            :disabled="config.mode === 'readOnly'"
-            v-if="item.type === 'switch'"
-            v-model="formData[item.key]"
-            :activeColor="theme.color_primary"
-          ></u-switch>
-          <!--开关选择器 end-->
+            <!-- 插槽 start-->
+            <template v-if="item.type === 'slot'">
+              <view>
+                <slot :name="item.slotName"></slot>
+              </view>
+              <u-icon slot="right" name="arrow-right" v-if="config.mode === 'editor'"></u-icon>
+            </template>
+            <!--插槽 end-->
 
-          <!--评分 start-->
-          <u-rate
-            v-if="item.type === 'rate'"
-            v-model="formData[item.key]"
-            :readonly="config.mode === 'readOnly'"
-            :activeColor="theme.color_primary"
-            :count="mergeProperty(item, 'count')"
-            :size="mergeProperty(item, 'size')"
-            :allowHalf="mergeProperty(item, 'allowHalf')"
-            :touchable="mergeProperty(item, 'touchable')"
-            :minCount="mergeProperty(item, 'minCount')"
-          ></u-rate>
-          <!--评分 end-->
-
-          <!-- slider start-->
-          <u-slider
-            v-if="item.type === 'slider'"
-            v-model="formData[item.key]"
-            :activeColor="theme.color_primary"
-            :showValue="mergeProperty(item, 'showValue')"
-            :disabled="config.mode === 'readOnly'"
-            :min="mergeProperty(item, 'min')"
-            :max="mergeProperty(item, 'max')"
-          ></u-slider>
-          <!--  slider end-->
-
-          <!-- number-box start-->
-          <u-number-box
-            v-if="item.type === 'numberBox'"
-            v-model="formData[item.key]"
-            :disabled="config.mode === 'readOnly'"
-            :min="mergeProperty(item, 'min')"
-            :max="mergeProperty(item, 'max')"
-            :step="mergeProperty(item, 'step')"
-            :disabledInput="mergeProperty(item, 'disabledInput')"
-          ></u-number-box>
-          <!-- number-box end-->
-
-          <!--checkboxGroup start-->
-          <u-checkbox-group
-            v-if="item.type === 'checkboxGroup'"
-            v-model="formData[item.key]"
-            :activeColor="theme.color_primary"
-            :placement="mergeProperty(item, 'placement')"
-            :disabled="config.mode === 'readOnly'"
-          >
-            <u-checkbox
-              v-for="(childItem, childIndex) in config.init[item.key]"
-              :key="childIndex"
-              :label="childItem.name"
-              :name="childItem.value"
-              :customStyle="mergeProperty(item, 'customStyle')"
-            ></u-checkbox>
-          </u-checkbox-group>
-          <!--checkboxGroup end-->
-
-          <!--u-radio-group start-->
-          <u-radio-group
-            v-if="item.type === 'radioGroup'"
-            v-model="formData[item.key]"
-            :placement="mergeProperty(item, 'placement')"
-            :activeColor="theme.color_primary"
-            :disabled="config.mode === 'readOnly'"
-          >
-            <u-radio
-              v-for="(childItem, childIndex) in config.init[item.key]"
-              :key="childIndex"
-              :label="childItem.name"
-              :name="childItem.value"
-              :customStyle="mergeProperty(item, 'customStyle')"
-            ></u-radio>
-          </u-radio-group>
-          <!-- u-radio-group end-->
-
-          <!-- 附件上传 start-->
-          <uni-upload
-            v-if="item.type === 'upload'"
-            v-model="formData[item.key]"
-            :max="mergeProperty(item, 'max')"
-            :btype="mergeProperty(item, 'btype')"
-            :disabled="config.mode === 'readOnly'"
-          ></uni-upload>
-          <!--附件上传 end-->
-
-          <!-- select start-->
-          <template v-if="item.type === 'select'">
-            <view @click="showModal(`${item.key}Modal`)">
-              {{
-                formData[item.keyName] ||
-                (config.mode === "editor" ? mergeProperty(item, "placeholder") : "")
-              }}
-              <uni-bottom-popup
-                :ref="`${item.key}Modal`"
-                v-model="formData[item.key]"
-                @change="changeValue($event, item)"
-                @click.native.stop
-                :initData="config.init[item.key]"
-              ></uni-bottom-popup>
-            </view>
-            <u-icon slot="right" name="arrow-right" v-if="config.mode === 'editor'"></u-icon>
-          </template>
-          <!--select end-->
-
-          <!--datetime start-->
-          <template v-if="item.type === 'datetime'">
-            <view @click="showDatetime(item.key)">
-              {{
-                formData[item.key] ||
-                (config.mode === "editor" ? mergeProperty(item, "placeholder") : "")
-              }}
-              <u-datetime-picker
-                @click.native.stop
-                :show="showConfig[item.key]"
-                :mode="mergeProperty(item, 'mode')"
-                @confirm="confirmDatetime($event, item)"
-                @cancel="closeDatetime(item.key)"
-                @close="closeDatetime(item.key)"
-                :minDate="mergeProperty(item, 'minDate')"
-                :loading="true"
-                :confirmColor="theme.color_primary"
-                :closeOnClickOverlay="true"
-              ></u-datetime-picker>
-            </view>
-            <u-icon slot="right" name="arrow-right" v-if="config.mode === 'editor'"></u-icon>
-          </template>
-          <!--datetime end-->
-
-          <!-- 插槽 start-->
-          <template v-if="item.type === 'slot'">
-            <slot :name="item.slotName"></slot>
-            <u-icon slot="right" name="arrow-right" v-if="config.mode === 'editor'"></u-icon>
-          </template>
-          <!--插槽 end-->
-
-          <!-- 右侧插槽-->
-          <template #right>
-            <slot :name="item.key"></slot>
-          </template>
-        </u-form-item>
+            <!-- 右侧插槽-->
+            <template #right>
+              <slot :name="item.key"></slot>
+            </template>
+          </u-form-item>
+        </view>
       </u-form>
     </template>
   </view>
@@ -230,7 +274,9 @@
       };
     },
     onReady() {
-      this.$refs.form.setRules(this.formConfig.rules);
+      if (this.formConfig.rules) {
+        this.$refs.form.setRules(this.formConfig.rules);
+      }
     },
     watch: {
       formConfig: {
@@ -239,6 +285,7 @@
           let formData = {};
           let showConfig = {};
           for (let i = 0; i < form.length; i++) {
+            if (!("key" in form[i])) continue;
             /**判断是否为datetime需要维护一个控制显隐的变量**/
             if (form[i].type === "datetime") {
               showConfig[form[i].key] = false;
@@ -255,11 +302,21 @@
             formData[form[i].key] = "";
           }
           this.formData = Object.assign(formData, this.defaultFormData);
-          this.config = Object.assign(default_config, newVal);
+          this.config = Object.assign(this.$_.cloneDeep(default_config), newVal);
           this.showConfig = showConfig;
         },
         immediate: true,
         deep: true,
+      },
+      defaultFormData: {
+        handler(newVal) {
+          this.formData = Object.assign(
+            this.$_.cloneDeep(this.formData),
+            this.$_.cloneDeep(newVal),
+          );
+        },
+        deep: true,
+        immediate: true,
       },
     },
     props: {
@@ -277,19 +334,22 @@
     methods: {
       /**重置表单**/
       resetFields() {
-        console.log("进入了");
         this.$refs.form.resetFields();
       },
       /**触发校验**/
       validate() {
         return new Promise((resolve, reject) => {
-          this.$refs.form.validate().then((res) => {
-            if (res) {
-              resolve(this.formData);
-            } else {
-              reject();
-            }
-          });
+          if (this.formConfig.rules) {
+            this.$refs.form.validate().then((res) => {
+              if (res) {
+                resolve(this.formData);
+              } else {
+                reject();
+              }
+            });
+          } else {
+            resolve(this.formData);
+          }
         });
       },
       /**
@@ -313,7 +373,10 @@
        * 配置中需要传入keyName
        * **/
       changeValue(e, item) {
-        this.formData[item.keyName] = e[item.labelName ?? "name"];
+        let nameArr = e.map((child) => {
+          return child[item.labelName ?? "name"];
+        });
+        this.formData[item.keyName] = nameArr.join(",");
         /**是否需要特殊处理传递事件出去**/
         if (item.event) {
           this.$emit(item.event, item);
@@ -352,4 +415,15 @@
   };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+  .input {
+    min-height: 1.4em;
+    line-height: 1.4em;
+    vertical-align: center;
+  }
+  .border {
+    height: 20rpx;
+    background: $bg_color_grey;
+    margin: 0 -32rpx;
+  }
+</style>

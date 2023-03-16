@@ -98,6 +98,7 @@
               label: "测试啊",
               placeholder: "请选择",
               event: "test",
+              selectType: "checkbox",
             },
             {
               type: "datetime",
