@@ -355,11 +355,10 @@
       /**
        * 合并通用配置和独有的配置
        * 如果没有默认值会读取config.js中的配置
-       * todo
-       * 空值合并符写在dom中编译报错
+       * 这里是处理每一个form的属性的取值顺序为页面传递=>config.js文件中对应类型的配置=>然后取config.js最外层的配置
        * **/
       mergeProperty(item, key) {
-        return item[key] ?? this.config[item.type][key];
+        return item[key] ?? this.config[item.type]?.[key] ?? this.config[key];
       },
       /**
        * 底部弹出层显示
