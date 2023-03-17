@@ -8,7 +8,7 @@
 
 const DEFAULT_CONFIG = {
   errorType: "toast", //校验提示方式 none|toast|border-bottom|message
-  borderBottom: false, //是否显示底部的border
+  borderBottom: true, //是否显示底部的border
   labelPosition: "left", //表单域提示文字的位置，left-左侧，top-上方
   labelWidth: "auto", //提示文字的宽度，单位px 数值 / auto
   labelAlign: "left", //label字体的对齐方式center / right /left
@@ -54,7 +54,6 @@ const DEFAULT_CONFIG = {
   },
   //复选框
   checkboxGroup: {
-    borderBottom: true,
     placement: "row", //布局方式，row-横向，column-纵向
     customStyle: {
       marginRight: "20rpx",
@@ -62,7 +61,6 @@ const DEFAULT_CONFIG = {
   },
   //单选框
   radioGroup: {
-    borderBottom: true,
     placement: "row",
     customStyle: {
       marginLeft: "20rpx",
