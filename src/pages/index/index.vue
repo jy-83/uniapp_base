@@ -168,7 +168,7 @@
     },
     methods: {
       validate() {
-        this.$refs.form.validate();
+        this.$refs.form.resetFields();
       },
       change(e) {},
     },

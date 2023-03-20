@@ -272,6 +272,8 @@
         theme: this.$theme,
         /**维护一些需要弹出层显示隐藏的变量**/
         showConfig: {},
+        /**初始表单的数据**/
+        resetFormData: {},
       };
     },
     onReady() {
@@ -302,8 +304,13 @@
             }
             formData[form[i].key] = "";
           }
+          /**保存初始值在本地用于重置表单**/
+          this.resetFormData = this.$_.cloneDeep(formData);
+          /**整理默认数据和初始数据合并**/
           this.formData = Object.assign(formData, this.defaultFormData);
+          /**表单的一些默认配置**/
           this.config = Object.assign(this.$_.cloneDeep(default_config), newVal);
+          /**用于控制弹出层显隐**/
           this.showConfig = showConfig;
         },
         immediate: true,
@@ -355,8 +362,8 @@
       },
       /**重置表单**/
       resetFields() {
-        console.log(this.$refs.form.resetFields);
-        this.$refs.form.resetFields();
+        console.log(this.resetFormData);
+        this.formData = { ...this.formData, ...this.resetFormData };
       },
       /**触发校验**/
       validate() {
