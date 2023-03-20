@@ -257,6 +257,7 @@
 
 <script>
   import default_config from "./config";
+  import { isArray } from "@/utils/validate";
 
   export default {
     name: "uni-form",
@@ -274,9 +275,7 @@
       };
     },
     onReady() {
-      if (this.formConfig.rules) {
-        this.$refs.form.setRules(this.formConfig.rules);
-      }
+      this.setRules();
     },
     watch: {
       formConfig: {
@@ -334,8 +333,29 @@
       },
     },
     methods: {
+      /** 设置校验规则,参数传递正则对象会出问题,传递为正则的source,这里统一处理 **/
+      setRules() {
+        if (this.formConfig.rules) {
+          let rules = this.$_.cloneDeep(this.formConfig.rules);
+          for (let key in rules) {
+            if (isArray(rules[key])) {
+              rules[key].forEach((item) => {
+                if (item.pattern) {
+                  item.pattern = new RegExp(item.pattern);
+                }
+              });
+            } else {
+              if (rules[key].pattern) {
+                rules[key].pattern = new RegExp(rules[key].pattern);
+              }
+            }
+          }
+          this.$refs.form.setRules(rules);
+        }
+      },
       /**重置表单**/
       resetFields() {
+        console.log(this.$refs.form.resetFields);
         this.$refs.form.resetFields();
       },
       /**触发校验**/
