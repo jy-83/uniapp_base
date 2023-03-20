@@ -269,7 +269,7 @@
         config: {},
         /**主题引入**/
         theme: this.$theme,
-        /**维护一些需要弹出层的变量**/
+        /**维护一些需要弹出层显示隐藏的变量**/
         showConfig: {},
       };
     },
@@ -281,10 +281,12 @@
     watch: {
       formConfig: {
         handler(newVal) {
+          console.log(newVal);
           let { form } = newVal;
           let formData = {};
           let showConfig = {};
           for (let i = 0; i < form.length; i++) {
+            /**没有key值就跳出当次循环**/
             if (!("key" in form[i])) continue;
             /**判断是否为datetime需要维护一个控制显隐的变量**/
             if (form[i].type === "datetime") {
