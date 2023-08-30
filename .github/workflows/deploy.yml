@@ -19,6 +19,7 @@ jobs:
           cd src
           touch a.txt
           echo "hello world" > a.txt
+          cat a.txt
       - name: delete  a file
         run: rm -rf a.txt
 
