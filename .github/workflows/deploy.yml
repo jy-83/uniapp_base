@@ -1,23 +1,24 @@
-name:deploy_myblog
+name: deploy_myblog
 
 on:
   push:
     branches:
-      - 'master' #针对 master 分支
+      - master #针对 master 分支
     path:
-      - '.github/workflows/*'
-      - 'src/**'
+      - .github/workflows/*
+      - src/**
 jobs:
   deploy:
-    runs-on:ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
-      - uses:actions/checkout@v2 #第三方的 action
-      - name:create a folder 
-        run:mkdir test-folder
-      - name:create a file
-        run:|
+      - uses: actions/checkout@v2 #第三方的 action
+      - name: create a folder
+        run: mkdir test-folder
+      - name: create a file
+        run: |
           cd src
           touch a.txt
           echo "hello world" > a.txt
-      - name delete  a file
-        run :rm -rf a.txt
+      - name: delete  a file
+        run: rm -rf a.txt
+
