@@ -1,0 +1,23 @@
+name:deploy myblog
+
+on:
+  push:
+    branches:
+      - 'main' #针对 main 分支
+    path:
+      - '.github/workerflows/*'
+      - 'src/**'
+jobs:
+  deploy:
+    runs-on:ubuntu-latest
+    steps:
+      - uses:actions/checkout@v2 #第三方的 action
+      - name:create a folder 
+        run:mkdir test-folder
+      - name:create a file
+        run:|
+          cd src
+          touch a.txt
+          echo "hello world" > a.txt
+      - name delete  a file
+        run :rm -rf a.txt
