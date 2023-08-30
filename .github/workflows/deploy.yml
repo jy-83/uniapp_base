@@ -5,7 +5,7 @@ on:
     branches:
       - 'master' #针对 master 分支
     path:
-      - '.github/workerflows/*'
+      - '.github/workflows/*'
       - 'src/**'
 jobs:
   deploy:
