@@ -3,7 +3,7 @@ name:deploy myblog
 on:
   push:
     branches:
-      - 'main' #针对 main 分支
+      - 'master' #针对 master 分支
     path:
       - '.github/workerflows/*'
       - 'src/**'
